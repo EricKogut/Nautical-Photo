@@ -12,6 +12,7 @@ import { ExploreComponent } from './_Pages/explore/explore.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
 
 const myRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -26,6 +27,7 @@ const myRoutes: Routes = [
     RouterModule.forRoot(myRoutes, { useHash: true }),
     BrowserAnimationsModule,
     MatSliderModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
