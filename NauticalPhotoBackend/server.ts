@@ -15,8 +15,11 @@ const port = process.env.PORT || 5000;
 ///////////////////////////
 /* Routes */
 import { userRouter } from "./routes/user.routes";
+import { photoRouter } from "./routes/photo.routes";
+
 // Mounting middleware to app
 app.use("/user", userRouter());
+app.use("/photo", photoRouter());
 ///////////////////////////
 
 //Adding middleware for requests
