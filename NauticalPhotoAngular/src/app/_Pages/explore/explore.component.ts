@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',

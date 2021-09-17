@@ -31,7 +31,7 @@ const multer = Multer({
 });
 
 interface MulterRequest extends Request {
-  file: any;
+  files: any;
 }
 
 // A bucket is a container for objects (files).
@@ -40,36 +40,46 @@ const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 export const photoRouter = () => {
   const router = Router();
 
-  router.get("/upload", (req: Request, res: Response) => {
+  router.get("/upload", async function (req: Request, res: Response) {
     return res.status(200).json({ response: "You are authenticated :)" });
   });
 
   // Process the file upload and upload to Google Cloud Storage.
-  router.post("/upload", multer.single("file"), (req: Request, res, next) => {
-    const multerRequest = (req as MulterRequest).file;
-    if (!multerRequest.file) {
-      res.status(400).send("No file uploaded.");
-      return;
+  router.post(
+    "/upload",
+    multer.single("file"),
+    async function (req: Request, res, next) {
+      const multerRequest = (req as MulterRequest).files;
+      console.log(multerRequest, "is the request");
+      if (!multerRequest.file) {
+        res.status(400).send("No file uploaded.");
+        return;
+      }
+
+      const stream = require("stream"),
+        dataStream = new stream.PassThrough(),
+        gcFile = bucket.file(multerRequest.file.name);
+      dataStream.push(multerRequest.file.data);
+      dataStream.push(null);
+
+      await new Promise((resolve, reject) => {
+        dataStream
+          .pipe(
+            gcFile.createWriteStream({
+              resumable: false,
+              validation: false,
+              metadata: { "Cache-Control": "public, max-age=31536000" },
+            })
+          )
+          .on("error", (error: Error) => {
+            reject(error);
+          })
+          .on("finish", () => {
+            resolve(true);
+          });
+      });
     }
-
-    // Create a new blob in the bucket and upload the file data.
-    const blob = bucket.file(multerRequest.file.originalname);
-    const blobStream = blob.createWriteStream();
-
-    blobStream.on("error", (err: Error) => {
-      next(err);
-    });
-
-    blobStream.on("finish", () => {
-      // The public URL can be used to directly access the file via HTTP.
-      const publicUrl = format(
-        `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-      );
-      res.status(200).send(publicUrl);
-    });
-
-    blobStream.end(multerRequest.file.buffer);
-  });
+  );
 
   return router;
 };

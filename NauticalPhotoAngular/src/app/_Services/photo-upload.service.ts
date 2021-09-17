@@ -12,9 +12,10 @@ const baseUrl = environment.backend_url;
 export class PhotoUploadService {
   constructor(private http: HttpClient) {}
 
-  uploadFile(){
-
-    //Getting all available course codes
-    // return this.http.put(baseUrl+"/photo/upload", )
+  uploadFile(file) {
+    const data = new FormData();
+    data.append('file', file, file.name);
+    console.log(file, 'is what we are sending');
+    return this.http.post(baseUrl + '/photo/upload', data);
   }
 }
