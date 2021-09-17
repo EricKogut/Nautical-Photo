@@ -18,13 +18,16 @@ describe("Register and Login test", () => {
   it("Will register a new user", async () => {
     const res = await requestWithSupertest
       .post("/user/register")
+      .setHeader("Content-Type", "application/json")
       .send(testUser);
     expect(res.status).toEqual(200);
   });
 
   it("Will login an existing user", async () => {
-    const res = await requestWithSupertest.post("/user/login").send(testUser);
+    const res = await requestWithSupertest
+      .post("/user/login")
+      .setHeader("Content-Type", "application/json")
+      .send(testUser);
     expect(res.status).toEqual(200);
   });
 });
-
