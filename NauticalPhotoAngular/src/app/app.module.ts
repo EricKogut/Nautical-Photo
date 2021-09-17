@@ -13,6 +13,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { HttpClientModule } from '@angular/common/http';
+import { PhotoUploaderComponent } from './_Common/photo-uploader/photo-uploader.component';
 
 const myRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -20,7 +21,7 @@ const myRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LandingComponent, ExploreComponent],
+  declarations: [AppComponent, LandingComponent, ExploreComponent, PhotoUploaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
