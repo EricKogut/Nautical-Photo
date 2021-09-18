@@ -21,9 +21,10 @@ export class AuthService {
       })
       .subscribe(
         // The response data
-        (response) => {
+        (response: any) => {
+          console.log(response, 'is the response');
           // If the user authenticates successfully, we need to store the JWT returned in localStorage
-          this.setLocalStorage(response);
+          this.setLocalStorage(response.response);
         },
         (error) => {
           //Error if the user is deactivated
@@ -36,6 +37,42 @@ export class AuthService {
           //Error if the user has not entered the right usern, password combo
           else if (error.status == 401) {
             window.alert('Sorry, no user with those credentials exists');
+          }
+        },
+
+        // When observable completes
+        () => {
+          console.log('done!');
+        }
+      );
+  }
+
+  register(request) {
+    const headers = new HttpHeaders({ 'Content-type': 'application/json' });
+
+    //Sending req to backend
+    this.http
+      .post(environment.backend_url + '/user/register', request, {
+        headers: headers,
+      })
+      .subscribe(
+        // The response data
+        (response) => {
+          window.alert(
+            'Visit ' +
+              environment.backend_url +
+              '/verify/' +
+              request.username +
+              ' to register your account'
+          );
+          // If the user authenticates successfully, we need to store the JWT returned in localStorage
+          // this.authService.setLocalStorage(response);
+        },
+
+        // If there is an error
+        (error) => {
+          if (error.status == 401) {
+            window.alert('Sorry, an account with that email already exists');
           }
         },
 

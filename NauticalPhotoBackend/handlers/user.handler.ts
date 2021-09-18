@@ -89,7 +89,7 @@ function handleUserLogin(data: any) {
           console.log(tokenObject.expires, "is when it expires");
           //Attach it to the request
           resolve({
-            status: 401,
+            status: 200,
             response: {
               success: true,
               token: tokenObject.token,
