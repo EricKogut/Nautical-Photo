@@ -3,7 +3,7 @@ import { MatSliderModule } from '@angular/material/slider';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.sass'],
+  styleUrls: ['./landing.component.css'],
 })
 export class LandingComponent implements OnInit {
   constructor() {}
