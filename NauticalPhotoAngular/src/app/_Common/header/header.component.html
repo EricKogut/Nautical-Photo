@@ -1,0 +1,27 @@
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light fadein">
+  <img class="logo-big logo-small" src="../assets/img/anchor.png" alt="Anchor logo">
+    <a class="navbar-brand brand-small" (click)="navigateToMain()" data-toggle="tooltip" style = "cursor:pointer;">  Nautical Photo</a>
+
+
+<button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+    &#9776;
+  </button>
+
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse justify-content-end" style = "margin-right: 15%;">
+    <ul class="navbar-nav icons mr-auto">
+      <li class = 'nav-item active '>
+        <a class="nav-link" [routerLink]="'/'" (click) = "navigateToMain()" style = "cursor:pointer;" >Explore</a>
+      </li>
+      <li class = 'nav-item active '>
+        <a class="nav-link" [routerLink]="'/'" (click) = "navigateToMain()" style = "cursor:pointer;" >|</a>
+      </li>
+      <li class = 'nav-item active '>
+        <a class="nav-link" [routerLink]="'/'" (click) = "navigateToMain()" style = "cursor:pointer;" >Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+

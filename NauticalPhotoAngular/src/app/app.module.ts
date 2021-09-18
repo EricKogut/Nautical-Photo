@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { HttpClientModule } from '@angular/common/http';
 import { PhotoUploaderComponent } from './_Common/photo-uploader/photo-uploader.component';
+import { HeaderComponent } from './_Common/header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const myRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -21,7 +23,7 @@ const myRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LandingComponent, ExploreComponent, PhotoUploaderComponent],
+  declarations: [AppComponent, LandingComponent, ExploreComponent, PhotoUploaderComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,6 +31,7 @@ const myRoutes: Routes = [
     BrowserAnimationsModule,
     MatSliderModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

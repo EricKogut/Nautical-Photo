@@ -92,6 +92,11 @@
               "src/assets"
             ],
             "styles": [
+
+              "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+
+              "../NauticalPhotoAngular/node_modules/angular-material/angular-material.min.css",
+              "../NauticalPhotoAngular/node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.sass"
             ],
             "scripts": []
