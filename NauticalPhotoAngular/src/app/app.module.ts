@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { PhotoUploaderComponent } from './_Common/photo-uploader/photo-uploader.component';
 import { HeaderComponent } from './_Common/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './_Pages/login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const myRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -23,7 +25,7 @@ const myRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LandingComponent, ExploreComponent, PhotoUploaderComponent, HeaderComponent],
+  declarations: [AppComponent, LandingComponent, ExploreComponent, PhotoUploaderComponent, HeaderComponent, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

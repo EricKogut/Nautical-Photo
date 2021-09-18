@@ -71,6 +71,7 @@ function handleUserLogin(data: any) {
         //Assuming we didnt find it, then return false (maybe not registers)
         if (!user) {
           resolve({ status: 401, response: "could not find user" });
+          console.log("cOULD NOT FIND USER");
         }
 
         //Otherwise, if it does exist, it uses util to verify the validity of the login
@@ -111,7 +112,5 @@ function handleUserLogin(data: any) {
       });
   });
 }
-
-
 
 module.exports.handleUser = handleUser;

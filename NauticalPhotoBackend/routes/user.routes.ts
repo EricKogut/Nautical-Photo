@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express";
 const userHandler = require("../handlers/user.handler.ts");
 //IMporting the passport library
-const passport = require('passport');
+const passport = require("passport");
 //Passing the imported passport module into the configuration function
-require('../utils/auth/passport')(passport)
+require("../utils/auth/passport")(passport);
 
 export const userRouter = () => {
   const router = Router();
@@ -28,8 +28,10 @@ export const userRouter = () => {
   router.post("/login", function (req, res, next) {
     userHandler
       .handleUser("login", req.body)
-      .then((response: String) => {
-        return res.status(200).json({ response: response });
+      .then((response: any) => {
+        return res
+          .status(response.status)
+          .json({ response: response.response });
       })
       .catch((error: String) => console.log(error, "error has occured"));
   });

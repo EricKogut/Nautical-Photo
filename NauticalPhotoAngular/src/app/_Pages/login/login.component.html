@@ -1,0 +1,9 @@
+<div id="search-component">
+  <h4><label for="search-box">Login using your credentials</label></h4>
+
+
+   <input maxlength = "30" #usernameBox id="search-box" (input)="handleUsername(usernameBox.value)" placeholder="Enter your email" />
+   <input maxlength = "30" #passwordBox id="search-box" (input)="handlePassword(passwordBox.value)" placeholder="Enter your password" />
+  <button (click) = "handleLogin()" >Login</button>
+  <button (click) = "handleRegister()" >Register</button>
+</div>
