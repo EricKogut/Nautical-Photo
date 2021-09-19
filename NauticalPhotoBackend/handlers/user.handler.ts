@@ -39,7 +39,11 @@ function handleUserRegistration(data: any) {
     //Making sure user does not exist and if so new result is created
     User.findOne({ username: inputUsername }).then((result) => {
       if (result) {
-        reject("User already exists");
+        resolve({
+          status: 401,
+          success: false,
+          message: "User already exists",
+        });
       } else {
         try {
           newUser.save().then((user) => {

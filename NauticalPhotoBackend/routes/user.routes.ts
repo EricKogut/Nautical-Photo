@@ -19,10 +19,10 @@ export const userRouter = () => {
   router.post("/register", function (req, res, next) {
     userHandler
       .handleUser("register", req.body)
-      .then((response: String) => {
-        return res.status(200).json({ response: response });
+      .then((response: any) => {
+        return res.status(response.status).json({ response: response });
       })
-      .catch((error: String) => console.log(error, "error has occured"));
+      .catch((error: any) =>{  return res.status(error.status).json({ response: error.status });});
   });
 
   router.post("/login", function (req, res, next) {

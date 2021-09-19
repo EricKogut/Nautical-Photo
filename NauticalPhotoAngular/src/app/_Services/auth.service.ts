@@ -59,11 +59,7 @@ export class AuthService {
         // The response data
         (response) => {
           window.alert(
-            'Visit ' +
-              environment.backend_url +
-              '/verify/' +
-              request.username +
-              ' to register your account'
+            "Success, you are ready to sign in!"
           );
           // If the user authenticates successfully, we need to store the JWT returned in localStorage
           // this.authService.setLocalStorage(response);
