@@ -51,9 +51,8 @@ function handleUpload(req: any) {
       });
     }
 
-    var fileType = /(?:\.([^.]+))?$/;
     const hash = (Math.random() + 1).toString(36).substring(7);
-    console.log;
+  
     const stream = require("stream"),
       dataStream = new stream.PassThrough(),
       gcFile = bucket.file(

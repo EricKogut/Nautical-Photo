@@ -12,13 +12,15 @@ import { ExploreComponent } from './_Pages/explore/explore.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
-import { HttpClientModule } from '@angular/common/http';
 import { PhotoUploaderComponent } from './_Common/photo-uploader/photo-uploader.component';
 import { HeaderComponent } from './_Common/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './_Common/auth/login/login.component';
 import { RegisterComponent } from './_Common/auth/register/register.component';
 import { AuthpageComponent } from './_Pages/authpage/authpage.component';
+import { AuthInterceptor } from './_Services/auth.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProtectedComponent } from './_Common/auth/protected/protected.component';
 
 const myRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -26,7 +28,17 @@ const myRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LandingComponent, ExploreComponent, PhotoUploaderComponent, HeaderComponent, LoginComponent, RegisterComponent, AuthpageComponent],
+  declarations: [
+    AppComponent,
+    LandingComponent,
+    ExploreComponent,
+    PhotoUploaderComponent,
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent,
+    AuthpageComponent,
+    ProtectedComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,7 +48,13 @@ const myRoutes: Routes = [
     HttpClientModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

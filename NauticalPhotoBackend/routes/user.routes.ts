@@ -22,7 +22,9 @@ export const userRouter = () => {
       .then((response: any) => {
         return res.status(response.status).json({ response: response });
       })
-      .catch((error: any) =>{  return res.status(error.status).json({ response: error.status });});
+      .catch((error: any) => {
+        return res.status(error.status).json({ response: error.status });
+      });
   });
 
   router.post("/login", function (req, res, next) {
@@ -35,6 +37,19 @@ export const userRouter = () => {
       })
       .catch((error: String) => console.log(error, "error has occured"));
   });
+
+  router.get(
+    "/protected",
+    passport.authenticate("jwt", { session: false }),
+    (req, res, next) => {
+      res
+        .status(200)
+        .json({
+          success: true,
+          msg: "Success on protected route, you are authorized",
+        });
+    }
+  );
 
   return router;
 };
