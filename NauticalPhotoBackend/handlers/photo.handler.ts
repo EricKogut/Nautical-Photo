@@ -36,6 +36,8 @@ function handlePhoto(endpoint: String, data: Object) {
   switch (endpoint) {
     case "upload":
       return handleUpload(data);
+      case "get/public":
+      return handleGetPublic(data);
   }
   return null;
 }
@@ -115,5 +117,16 @@ function handleUpload(req: any) {
       });
   });
 }
+
+function handleGetPublic(req: any) {
+  return new Promise((resolve, reject) => {
+    Photo.find({public:true}).sort({"created_at":1}).then((photos)=>{
+      resolve({status:200, success:true, message:photos})
+    }
+    )
+
+    
+  })
+  }
 
 module.exports.handlePhoto = handlePhoto;

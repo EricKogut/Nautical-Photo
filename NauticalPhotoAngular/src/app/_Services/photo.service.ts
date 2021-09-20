@@ -8,15 +8,10 @@ const baseUrl = environment.backend_url;
 @Injectable({
   providedIn: 'root',
 })
-export class PhotoUploadService {
+export class PhotoService {
   constructor(private http: HttpClient) {}
 
-  uploadFile(file) {
-    const email = localStorage.getItem('email');
-    const hash = localStorage.getItem('hash');
-    const data = new FormData();
-    data.append('file', file, file.name);
-    return this.http.post(baseUrl + '/photo/upload/' + email, data);
+  getPublicPhotos() {
+    return this.http.get(baseUrl + '/photo/get/public');
   }
-  
 }

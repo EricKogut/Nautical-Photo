@@ -37,5 +37,22 @@ export const photoRouter = () => {
     }
   );
 
+  // Process the file upload and upload to Google Cloud Storage.
+  router.get(
+    "/get/public",
+    async function (req: Request, res, next) {
+      photoHandler
+        .handlePhoto("get/public", req)
+        .then((response: any) => {
+          return res.status(response.status).json({ response });
+        })
+        .catch((error: any) => {
+          return res.status(error.status).json({ error });
+        });
+    }
+  );
+
+
+
   return router;
 };

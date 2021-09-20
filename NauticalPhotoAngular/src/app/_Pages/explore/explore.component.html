@@ -5,5 +5,10 @@
 </div>
 <div *ngIf="!isLoggedIn">
   Login to upload your own photos
+</div>
 
+<div *ngFor="let photo of photos">
+  photo
+  {{photo.url}}
+<img src = "{{photo.url}}">
 </div>
