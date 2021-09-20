@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../../_Services/auth.service';
 import { Router } from '@angular/router';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,10 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
+
+  @Output()
+  public changeAuthPage = new EventEmitter();
+
 
   //This will store what the user has inputted
   private username: string;

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // Getting the url for the backend
 import { environment } from '../../environments/environment';
+import { SelectControlValueAccessor } from '@angular/forms';
 const baseUrl = environment.backend_url;
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   /*Http Functions  */
-  login(request) {
+  login(request)  {
     const headers = new HttpHeaders({ 'Content-type': 'application/json' });
 
     this.http
@@ -25,6 +26,7 @@ export class AuthService {
           console.log(response, 'is the response');
           // If the user authenticates successfully, we need to store the JWT returned in localStorage
           this.setLocalStorage(response.response);
+          return true;
         },
         (error) => {
           //Error if the user is deactivated
@@ -38,6 +40,7 @@ export class AuthService {
           else if (error.status == 401) {
             window.alert('Sorry, no user with those credentials exists');
           }
+          return false;
         },
 
         // When observable completes
@@ -58,9 +61,7 @@ export class AuthService {
       .subscribe(
         // The response data
         (response) => {
-          window.alert(
-            "Success, you are ready to sign in!"
-          );
+          window.alert('Success, you are ready to sign in!');
           // If the user authenticates successfully, we need to store the JWT returned in localStorage
           // this.authService.setLocalStorage(response);
         },

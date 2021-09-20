@@ -25,6 +25,7 @@ import { ProtectedComponent } from './_Common/auth/protected/protected.component
 const myRoutes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'explore', component: ExploreComponent },
+  { path: 'auth', component: AuthpageComponent },
 ];
 
 @NgModule({

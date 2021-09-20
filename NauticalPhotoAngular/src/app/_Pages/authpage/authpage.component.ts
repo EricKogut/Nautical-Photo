@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthpageComponent implements OnInit {
 
+  public authType: String = "login";
+
   constructor() { }
 
   ngOnInit(): void {
