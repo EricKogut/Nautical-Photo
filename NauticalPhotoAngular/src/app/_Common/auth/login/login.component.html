@@ -17,8 +17,9 @@
   <mat-label>Enter your password</mat-label>
   <input matInput maxlength = "30" #passwordBox (input)="handlePassword(passwordBox.value)" placeholder="Enter your password" >
 </mat-form-field>
-<button mat-button color="primary" (click) = "handleLogin()">Login</button>
-    <button mat-button color="accent" (click) = "handleRegister()">Register</button>
+<button mat-raised-button color="primary" (click) = "handleLogin()">Login</button>
+    <button mat-stroked-button color="accent" (click) = "handleRegister()">Register</button>
 </mat-card-content>
   </mat-card>
 
+  

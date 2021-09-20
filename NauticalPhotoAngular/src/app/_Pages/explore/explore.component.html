@@ -1,14 +1,46 @@
-<p>explore works!</p>
+
 <div *ngIf="isLoggedIn">
-  <app-photo-uploader></app-photo-uploader>
-
+  <mat-tab-group mat-align-tabs="center" animationDuration="1000ms">
+    <mat-tab label="Feed">
+      <app-photo-uploader style="margin-top: 10px;"></app-photo-uploader>
+      <div *ngFor="let photo of photos">
+        <mat-card style="margin-top: 10px;">
+          <img style="max-width:90%; max-height:90%;  margin: 0 auto;" src="{{photo.url}}">
+          <mat-card-subtitle style="margin-top: 2px;">Liked {{photo.likes}} times <button mat-icon-button color="warn"
+              style="float: right;" (click)="likeImage(photo)">
+              <mat-icon>favorite</mat-icon>
+            </button></mat-card-subtitle>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Your Images">
+      <app-photo-uploader style="margin-top: 10px;"></app-photo-uploader>
+      <div *ngFor="let photo of user_photos">
+        <mat-card style="margin-top: 10px;">
+          <img style="max-width:90%; max-height:90%;  margin: 0 auto;" src="{{photo.url}}">
+          <mat-card-subtitle style="margin-top: 2px;">Liked {{photo.likes}} times <button mat-icon-button color="warn"
+              style="float: right;" (click)="likeImage(photo)">
+              <mat-icon>favorite</mat-icon>
+            </button></mat-card-subtitle>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
+
 <div *ngIf="!isLoggedIn">
-  Login to upload your own photos
+ 
+  <mat-toolbar>
+    <span>Login to upload and like photos</span>
+  </mat-toolbar>
+  <div *ngFor="let photo of photos">
+    <mat-card style="margin-top: 10px;">
+      <img style="max-width:90%; max-height:90%;  margin: 0 auto;" src="{{photo.url}}">
+      <mat-card-subtitle style="margin-top: 2px;">Liked {{photo.likes}} times</mat-card-subtitle>
+    </mat-card>
+  </div>
 </div>
 
-<div *ngFor="let photo of photos">
-  photo
-  {{photo.url}}
-<img src = "{{photo.url}}">
+<div *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
 </div>

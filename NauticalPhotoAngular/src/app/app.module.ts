@@ -18,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { PhotoUploaderComponent } from './_Common/photo-uploader/photo-uploader.component';
 import { HeaderComponent } from './_Common/header/header.component';
@@ -59,6 +61,8 @@ const myRoutes: Routes = [
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    MatTabsModule,
+    MatToolbarModule,
     HttpClientModule,
     NgbModule,
   ],

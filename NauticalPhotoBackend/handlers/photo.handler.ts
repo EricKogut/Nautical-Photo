@@ -1,6 +1,8 @@
 const authUtils = require("../utils/auth/authUtils");
 import { Photo } from "../models/Photo.model";
 import { Router, Request, Response } from "express";
+import { User } from "../models/User.model";
+const { ObjectId } = require("mongodb");
 
 // [START gae_flex_storage_app]
 const { format } = require("util");
@@ -36,8 +38,12 @@ function handlePhoto(endpoint: String, data: Object) {
   switch (endpoint) {
     case "upload":
       return handleUpload(data);
-      case "get/public":
+    case "get/public":
       return handleGetPublic(data);
+    case "get/private":
+      return handleGetPrivate(data);
+    case "like":
+      return handleLike(data);
   }
   return null;
 }
@@ -120,13 +126,59 @@ function handleUpload(req: any) {
 
 function handleGetPublic(req: any) {
   return new Promise((resolve, reject) => {
-    Photo.find({public:true}).sort({"created_at":1}).then((photos)=>{
-      resolve({status:200, success:true, message:photos})
-    }
-    )
+    Photo.find({ public: true })
+      .sort({ created_at: 1 })
+      .then((photos) => {
+        resolve({ status: 200, success: true, message: photos });
+      })
+      .catch((err) => {
+        reject({ status: 500, success: true, message: "issue getting photos" });
+      });
+  });
+}
 
-    
-  })
-  }
+function handleGetPrivate(req: any) {
+  return new Promise((resolve, reject) => {
+    //First seeing if the password and email combo works
+    User.find({ username: req.body.owner, password: req.body.hash })
+      .then((user) => {
+        //If the user exists wrt the password email combo, get the images
+        Photo.find({ owner: req.body.owner })
+          .then((photos) => {
+            resolve({ status: 200, success: true, message: photos });
+          })
+          .catch((err) => {
+            reject({
+              status: 500,
+              success: true,
+              message: "Issue geting photos" + err,
+            });
+          });
+      })
+      .catch((err) => {
+        reject({
+          status: 403,
+          success: true,
+          message: "You are not authorized to get this photo" + err,
+        });
+      });
+  });
+}
+
+function handleLike(req: any) {
+  return new Promise((resolve, reject) => {
+    Photo.updateOne({ _id: new ObjectId(req.body.id) }, { $inc: { likes: 1 } })
+      .then((photo) => {
+        resolve({ status: 200, success: true, message: "Liked image" });
+      })
+      .catch((err) => {
+        reject({
+          status: 500,
+          success: true,
+          message: "issue liking phot photos" + err,
+        });
+      });
+  });
+}
 
 module.exports.handlePhoto = handlePhoto;

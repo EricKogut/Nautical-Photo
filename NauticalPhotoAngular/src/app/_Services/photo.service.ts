@@ -14,4 +14,18 @@ export class PhotoService {
   getPublicPhotos() {
     return this.http.get(baseUrl + '/photo/get/public');
   }
+  getUserPhotos(owner) {
+    console.log('getting', {
+      owner: owner.email,
+      hash: owner.hash,
+    });
+    return this.http.put(baseUrl + '/photo/get/private', {
+      owner: owner.email,
+      hash: owner.hash,
+    });
+  }
+
+  likeImage(id) {
+    return this.http.put(baseUrl + '/photo/like', { id: id });
+  }
 }
