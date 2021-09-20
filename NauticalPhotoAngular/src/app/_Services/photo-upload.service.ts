@@ -14,12 +14,10 @@ export class PhotoUploadService {
   uploadFile(file) {
     const email = localStorage.getItem('email');
     const hash = localStorage.getItem('hash');
-
     const data = new FormData();
     data.append('file', file, file.name);
-    data.append('email', email);
-    data.append('hash', hash);
-
-    return this.http.post(baseUrl + '/photo/upload', data);
+    return this.http.post(baseUrl + '/photo/upload/' + email, data);
   }
+
+  getAllPhotos() {}
 }

@@ -31,7 +31,11 @@ export class LoginComponent implements OnInit {
   }
 
   //Init (empty for now)
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('id_token')) {
+      this.router.navigate(['']);
+    }
+  }
 
   //Getting the user input from the various input boxes
   handleUsername(term: string): void {

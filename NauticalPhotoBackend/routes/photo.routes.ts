@@ -23,7 +23,7 @@ export const photoRouter = () => {
 
   // Process the file upload and upload to Google Cloud Storage.
   router.post(
-    "/upload",
+    "/upload/:email",
     multer.single("file"),
     async function (req: Request, res, next) {
       photoHandler

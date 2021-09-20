@@ -11,21 +11,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ExploreComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, public http: HttpClient) {}
+  isLoggedIn:Boolean = false;
 
   ngOnInit(): void {
-    this.someMethod();
+    if (localStorage.getItem('id_token')) {
+      this.isLoggedIn = true;
+      console.log('user is logged in');
+    }
   }
 
-  htmlString;
-  htmlData;
-  someMethod() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'text/plain',
-    });
-    const request = this.http
-      .get('http://localhost:5000', { headers: headers })
-      .subscribe((res) => console.log(res, 'is the response'));
-
-    this.htmlData = this.sanitizer.bypassSecurityTrustHtml(this.htmlString); // this line bypasses angular security
-  }
+  
 }

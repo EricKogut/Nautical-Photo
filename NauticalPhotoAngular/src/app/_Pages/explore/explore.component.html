@@ -1,4 +1,9 @@
 <p>explore works!</p>
-<img src ="https://storage.cloud.google.com/nautical-photo-pictures/Z.png">
-<div [innerHtml]="htmlData">
+<div *ngIf="isLoggedIn">
+  <app-photo-uploader></app-photo-uploader>
+
+</div>
+<div *ngIf="!isLoggedIn">
+  Login to upload your own photos
+
 </div>

@@ -42,8 +42,14 @@ function handlePhoto(endpoint: String, data: Object) {
 
 function handleUpload(req: any) {
   return new Promise((resolve, reject) => {
+    if (!req.params) {
+      reject({
+        status: 403,
+        message: "No email given!",
+      });
+    }
+
     const multerRequest = (req as MulterRequest).files;
-    console.log(multerRequest, "is the request");
     if (!multerRequest.file) {
       reject({
         status: 400,
@@ -53,11 +59,11 @@ function handleUpload(req: any) {
 
     const hash = (Math.random() + 1).toString(36).substring(7);
 
+    const fileExtention = multerRequest.file.name.split(".").pop();
+
     const stream = require("stream"),
       dataStream = new stream.PassThrough(),
-      gcFile = bucket.file(
-        hash + "." + multerRequest.file.name.split(".").pop()
-      );
+      gcFile = bucket.file(hash + "." + fileExtention);
 
     dataStream.push(multerRequest.file.data);
     dataStream.push(null);
@@ -78,10 +84,34 @@ function handleUpload(req: any) {
         });
       })
       .on("finish", () => {
-        resolve({
-          status: 200,
-          message: "File successfully uploaded!",
+        //Creating a new user
+        const newPhoto = new Photo({
+          name: multerRequest.file.name,
+          owner: req.params.email,
+          url:
+            "https://storage.googleapis.com/nautical-photo-pictures/" +
+            hash +
+            "." +
+            fileExtention,
+          public: true,
+          likes: 0,
         });
+
+        try {
+          newPhoto.save().then((photo) => {
+            //This function grabs the id off the user object
+            resolve({
+              status: 200,
+              message: "File successfully uploaded!",
+            });
+          });
+        } catch (err) {
+          reject({
+            status: 500,
+            success: false,
+            message: err,
+          });
+        }
       });
   });
 }
