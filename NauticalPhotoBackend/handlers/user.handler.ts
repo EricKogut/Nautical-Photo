@@ -53,6 +53,7 @@ function handleUserRegistration(data: any) {
             //This returns an object with token and expireIn
 
             resolve({
+              status: 200,
               success: true,
               user: user,
               token: jwt.token,
@@ -60,7 +61,11 @@ function handleUserRegistration(data: any) {
             });
           });
         } catch (err) {
-          reject(err);
+          reject({
+            status: 500,
+            success: false,
+            message: err,
+          });
         }
       }
     });

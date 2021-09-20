@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../../_Services/auth.service';
 import { Router } from '@angular/router';
+import { Output, EventEmitter } from '@angular/core';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +24,9 @@ export class RegisterComponent implements OnInit {
   private password: string = '';
   private name: string = '';
 
+  @Output()
+  public changeAuthPage = new EventEmitter();
+
   ngOnInit(): void {}
 
   //Getting the user input from the various input boxes
@@ -36,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
 
   //Making sure that the input is valid
-  handleRegister() {
+  async handleRegister() {
     if (this.username == '') {
       window.alert('Please enter an email');
     }
@@ -64,7 +69,8 @@ export class RegisterComponent implements OnInit {
         email: this.username,
         password: this.password,
       };
-      this.authService.register(reqObject);
+      const register = await this.authService.register(reqObject);
+      console.log('Register value is', register);
     }
   }
 }

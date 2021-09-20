@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   /*Http Functions  */
-  login(request)  {
+  login(request) {
     const headers = new HttpHeaders({ 'Content-type': 'application/json' });
 
     this.http
@@ -50,34 +50,39 @@ export class AuthService {
       );
   }
 
-  register(request) {
+  async register(request) {
     const headers = new HttpHeaders({ 'Content-type': 'application/json' });
+    console.log('registering');
 
-    //Sending req to backend
-    this.http
-      .post(environment.backend_url + '/user/register', request, {
-        headers: headers,
-      })
-      .subscribe(
-        // The response data
-        (response) => {
-          window.alert('Success, you are ready to sign in!');
-          // If the user authenticates successfully, we need to store the JWT returned in localStorage
-          // this.authService.setLocalStorage(response);
-        },
+    return new Promise((resolve, reject) => {
+      //Sending req to backend
+      this.http
+        .post(environment.backend_url + '/user/register', request, {
+          headers: headers,
+        })
+        .subscribe(
+          // The response data
+          (response) => {
+            window.alert('Success, you are ready to sign in!');
+            resolve(true);
+            // If the user authenticates successfully, we need to store the JWT returned in localStorage
+            // this.authService.setLocalStorage(response);
+          },
 
-        // If there is an error
-        (error) => {
-          if (error.status == 401) {
-            window.alert('Sorry, an account with that email already exists');
+          // If there is an error
+          (error) => {
+            if (error.status == 401) {
+              reject(false);
+              window.alert('Sorry, an account with that email already exists');
+            }
+          },
+
+          // When observable completes
+          () => {
+            console.log('done!');
           }
-        },
-
-        // When observable completes
-        () => {
-          console.log('done!');
-        }
-      );
+        );
+    });
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////

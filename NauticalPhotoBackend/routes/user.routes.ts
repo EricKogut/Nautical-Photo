@@ -42,12 +42,10 @@ export const userRouter = () => {
     "/protected",
     passport.authenticate("jwt", { session: false }),
     (req, res, next) => {
-      res
-        .status(200)
-        .json({
-          success: true,
-          msg: "Success on protected route, you are authorized",
-        });
+      res.status(200).json({
+        success: true,
+        msg: "Success on protected route, you are authorized",
+      });
     }
   );
 
