@@ -1,7 +1,7 @@
 <div *ngIf="authType === 'login'">
-  <app-login></app-login>
+  <app-login (changeAuthPage)="updateAuthPage($event)"></app-login>
 </div>
 
 <div *ngIf="authType === 'register'">
-  <app-register></app-register>
+  <app-register (changeAuthPage)="updateAuthPage($event)" ></app-register>
 </div>

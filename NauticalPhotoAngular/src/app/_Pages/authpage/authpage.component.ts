@@ -3,15 +3,16 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-authpage',
   templateUrl: './authpage.component.html',
-  styleUrls: ['./authpage.component.sass']
+  styleUrls: ['./authpage.component.sass'],
 })
 export class AuthpageComponent implements OnInit {
+  public authType: String = 'login';
 
-  public authType: String = "login";
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  updateAuthPage(event) {
+    this.authType = event;
   }
 
+  ngOnInit(): void {}
 }

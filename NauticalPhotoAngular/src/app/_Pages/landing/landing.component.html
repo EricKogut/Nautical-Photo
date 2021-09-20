@@ -1,6 +1,3 @@
-<p>landing works!</p>
-<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
-
 
 <div class="waveWrapper waveAnimation">
   <div class="waveWrapperInner bgTop">
@@ -40,12 +37,7 @@
         <h3>
           What it lacks in originality it makes up in features... wait nm
         </h3>
-        <a class="btn btn-dark fadein black_button" role="button">Login and explore</a>
+        <a class="btn btn-dark fadein black_button" [routerLink]="'/auth'"  role="button">Login and explore</a>
       </div>
     </div>
 </div>
-
-<app-login></app-login>
-<app-register></app-register>
-<app-photo-uploader></app-photo-uploader>
-<app-protected></app-protected>

@@ -52,7 +52,7 @@ function handleUpload(req: any) {
     }
 
     const hash = (Math.random() + 1).toString(36).substring(7);
-  
+
     const stream = require("stream"),
       dataStream = new stream.PassThrough(),
       gcFile = bucket.file(

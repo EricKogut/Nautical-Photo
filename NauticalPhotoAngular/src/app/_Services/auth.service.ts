@@ -13,41 +13,43 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   /*Http Functions  */
-  login(request) {
-    const headers = new HttpHeaders({ 'Content-type': 'application/json' });
+  async login(request) {
+    return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders({ 'Content-type': 'application/json' });
 
-    this.http
-      .post(environment.backend_url + '/user/login', request, {
-        headers: headers,
-      })
-      .subscribe(
-        // The response data
-        (response: any) => {
-          console.log(response, 'is the response');
-          // If the user authenticates successfully, we need to store the JWT returned in localStorage
-          this.setLocalStorage(response.response);
-          return true;
-        },
-        (error) => {
-          //Error if the user is deactivated
-          if (error.status == 423) {
-            window.alert(
-              'Sorry, your account has been deactivaed. Contact a system admin <3'
-            );
+      this.http
+        .post(environment.backend_url + '/user/login', request, {
+          headers: headers,
+        })
+        .subscribe(
+          // The response data
+          (response: any) => {
+            console.log(response, 'is the response');
+            // If the user authenticates successfully, we need to store the JWT returned in localStorage
+            this.setLocalStorage(response.response);
+            resolve(true);
+          },
+          (error) => {
+            //Error if the user is deactivated
+            if (error.status == 423) {
+              window.alert(
+                'Sorry, your account has been deactivaed. Contact a system admin <3'
+              );
+            }
+
+            //Error if the user has not entered the right usern, password combo
+            else if (error.status == 401) {
+              window.alert('Sorry, no user with those credentials exists');
+            }
+            resolve(false);
+          },
+
+          // When observable completes
+          () => {
+            console.log('done!');
           }
-
-          //Error if the user has not entered the right usern, password combo
-          else if (error.status == 401) {
-            window.alert('Sorry, no user with those credentials exists');
-          }
-          return false;
-        },
-
-        // When observable completes
-        () => {
-          console.log('done!');
-        }
-      );
+        );
+    });
   }
 
   async register(request) {
@@ -63,7 +65,6 @@ export class AuthService {
         .subscribe(
           // The response data
           (response) => {
-            window.alert('Success, you are ready to sign in!');
             resolve(true);
             // If the user authenticates successfully, we need to store the JWT returned in localStorage
             // this.authService.setLocalStorage(response);
@@ -72,8 +73,8 @@ export class AuthService {
           // If there is an error
           (error) => {
             if (error.status == 401) {
-              reject(false);
               window.alert('Sorry, an account with that email already exists');
+              resolve(false);
             }
           },
 

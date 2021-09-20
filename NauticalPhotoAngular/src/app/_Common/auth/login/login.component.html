@@ -1,9 +1,24 @@
-<div id="search-component">
-  <h4><label for="search-box">Login using your credentials</label></h4>
+<mat-card >
+  <mat-card-title>
+    Login to your account</mat-card-title>
+    <img mat-card-image  style = "max-width:50%; max-height:50%;  margin: 0 auto;"  src = "../../../../assets/img/dancing-duck2.gif">
+    <img mat-card-image  style = "max-width:30%; max-height:30%;  margin: 0 auto;"  src = "../../../../assets/img/anchor.png">
+
+    <mat-card-content>
+      <mat-card-subtitle>Login to your account if you already have one :)</mat-card-subtitle>
 
 
-   <input maxlength = "30" #usernameBox id="search-box" (input)="handleUsername(usernameBox.value)" placeholder="Enter your email" />
-   <input maxlength = "30" #passwordBox id="search-box" (input)="handlePassword(passwordBox.value)" placeholder="Enter your password" />
-  <button (click) = "handleLogin()" >Login</button>
-  <button (click) = "handleRegister()" >Register</button>
-</div>
+<mat-form-field appearance="outline">
+  <mat-label>Enter your email</mat-label>
+  <input matInput maxlength = "30" #usernameBox  (input)="handleUsername(usernameBox.value)" placeholder="Enter your email"  >
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>Enter your password</mat-label>
+  <input matInput maxlength = "30" #passwordBox (input)="handlePassword(passwordBox.value)" placeholder="Enter your password" >
+</mat-form-field>
+<button mat-button color="primary" (click) = "handleLogin()">Login</button>
+    <button mat-button color="accent" (click) = "handleRegister()">Register</button>
+</mat-card-content>
+  </mat-card>
+

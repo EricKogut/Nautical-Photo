@@ -12,6 +12,13 @@ import { ExploreComponent } from './_Pages/explore/explore.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+
 import { PhotoUploaderComponent } from './_Common/photo-uploader/photo-uploader.component';
 import { HeaderComponent } from './_Common/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -46,6 +53,12 @@ const myRoutes: Routes = [
     RouterModule.forRoot(myRoutes, { useHash: true }),
     BrowserAnimationsModule,
     MatSliderModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
     HttpClientModule,
     NgbModule,
   ],

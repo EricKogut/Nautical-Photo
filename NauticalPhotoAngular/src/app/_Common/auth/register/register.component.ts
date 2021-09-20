@@ -5,6 +5,7 @@ import { AuthService } from '../../../_Services/auth.service';
 import { Router } from '@angular/router';
 import { Output, EventEmitter } from '@angular/core';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,9 @@ export class RegisterComponent implements OnInit {
   private password: string = '';
   private name: string = '';
 
+  // Will be used to handle the loading of registering
+  public loading = false;
+
   @Output()
   public changeAuthPage = new EventEmitter();
 
@@ -40,16 +44,24 @@ export class RegisterComponent implements OnInit {
     this.name = term.replace(/[<={}()>/\\]/gi, '');
   }
 
+  handleLogin() {
+    this.changeAuthPage.emit('login');
+  }
   //Making sure that the input is valid
   async handleRegister() {
+    this.loading = true;
+    let valid = true;
     if (this.username == '') {
       window.alert('Please enter an email');
+      valid = false;
     }
     if (this.password == '') {
       window.alert('Please enter a password');
+      valid = false;
     }
     if (this.name == '') {
       window.alert('Please enter a name');
+      valid = false;
     }
 
     //Ensuring the email is valid
@@ -59,18 +71,21 @@ export class RegisterComponent implements OnInit {
     // }
 
     //If everything is valid, the app tries to create the new user
-    if (true) {
-      //Declaring the headesrs
-      const headers = new HttpHeaders({ 'Content-type': 'application/json' });
-
+    if (valid) {
       //Creating the request object
       const reqObject = {
         username: this.name,
         email: this.username,
         password: this.password,
       };
-      const register = await this.authService.register(reqObject);
-      console.log('Register value is', register);
+      const registered = await this.authService.register(reqObject);
+
+      // If registration is working, send the user to the login system
+      if (registered) {
+        this.changeAuthPage.emit('login');
+      }
+
     }
+    this.loading = false;
   }
 }

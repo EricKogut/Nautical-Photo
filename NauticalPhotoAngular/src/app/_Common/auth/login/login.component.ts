@@ -21,14 +21,13 @@ export class LoginComponent implements OnInit {
   @Output()
   public changeAuthPage = new EventEmitter();
 
-
   //This will store what the user has inputted
   private username: string;
   private password: string;
 
   //Moving the user to register if they click register
   handleRegister() {
-    this.router.navigate(['register']);
+    this.changeAuthPage.emit('register');
   }
 
   //Init (empty for now)
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   //Handling the input and getting a rsponse
-  handleLogin() {
+  async handleLogin() {
     const headers = new HttpHeaders({ 'Content-type': 'application/json' });
     //Creatibg the request object
     const reqObject = {
@@ -51,7 +50,11 @@ export class LoginComponent implements OnInit {
       password: this.password,
     };
 
-    //Sneding the request to login
-    this.authService.login(reqObject);
+    //Sendding the request to login
+    const result = await this.authService.login(reqObject);
+
+    if (result) {
+      this.router.navigate(['']);
+    }
   }
 }
