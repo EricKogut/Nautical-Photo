@@ -202,11 +202,13 @@ function handleTogglePhoto(req: any) {
   return new Promise((resolve, reject) => {
     Photo.find({ _id: new ObjectId(req.body.id) })
       .then((photo: any) => {
-        Photo.updateOne(
+        Photo.findByIdAndUpdate(
           { _id: new ObjectId(req.body.id) },
           { public: !photo.public }
         )
           .then((updatedPhoto) => {
+            console.log(updatedPhoto, "has been toggled");
+
             resolve({
               status: 200,
               success: true,
