@@ -146,10 +146,11 @@ function handleGetPrivate(req: any) {
   return new Promise((resolve, reject) => {
     //First seeing if the password and email combo works
     User.find({ username: req.body.owner, password: req.body.hash })
-      .sort({ createdAt: -1 })
+
       .then((user) => {
         //If the user exists wrt the password email combo, get the images
         Photo.find({ owner: req.body.owner })
+          .sort({ createdAt: -1 })
           .then((photos) => {
             resolve({ status: 200, success: true, message: photos });
           })

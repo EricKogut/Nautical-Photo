@@ -54,7 +54,9 @@ export class ExploreComponent implements OnInit {
       const index = this.user_photos.indexOf(photo);
       this.user_photos[index].public = !this.user_photos[index].public;
 
-      const publicIndex = this.photos.indexOf(photo);
+      const publicIndex = this.photos.findIndex((obj) => obj._id === photo._id);
+
+      console.log(publicIndex);
       if (publicIndex !== -1) {
         this.photos.splice(publicIndex, 1);
       } else {
@@ -71,7 +73,8 @@ export class ExploreComponent implements OnInit {
       const index = this.user_photos.indexOf(photo);
       this.user_photos.splice(index, 1);
 
-      const publicIndex = this.photos.indexOf(photo);
+      const publicIndex = this.photos.findIndex((obj) => obj._id === photo._id);
+      console.log(publicIndex);
       if (publicIndex !== -1) {
         this.photos.splice(publicIndex, 1);
       }
