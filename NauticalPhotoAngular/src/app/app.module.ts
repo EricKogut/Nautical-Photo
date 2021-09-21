@@ -54,6 +54,7 @@ const myRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(myRoutes, { useHash: true }),
     BrowserAnimationsModule,
+    NgbModule,
     MatSliderModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
@@ -64,7 +65,6 @@ const myRoutes: Routes = [
     MatTabsModule,
     MatToolbarModule,
     HttpClientModule,
-    NgbModule,
   ],
   providers: [
     {

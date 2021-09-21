@@ -1,11 +1,22 @@
-/* .custom-nav-item {
-  font-family: "SF-Pro-Light", Arial, Helvetica, sans-serif;
-}
- */
- @media  only screen and (max-width: 600px)  {
-  .icons{
-    display:none;
+
+ @media  only screen and (max-width: 700px)  {
+
+  .logo-big {
+    height: 32px;
+    width:  32px;
+    margin-left:0%;
+    margin-right: 3%;
   }
+  li{
+    display:table;
+    margin:0px auto 0px auto;
+  }
+  .navbar-brand{
+    margin-right: 0;
+  }
+}
+
+@media  only screen and (max-width: 1000px) and (min-width: 700px) {
 
   .logo-small {
     height: 32px;
@@ -14,30 +25,37 @@
     margin-right: 0%;
   }
 
-  .brand-small {
+  .logo-big {
     height: 32px;
-
+    width:  32px;
+    margin-left:15%;
+    margin-right: 3%;
+  }
+  li{
+    display:table;
+    margin:0px auto 0px auto;
   }
 }
 
+@media  only screen and (max-width: 900px)  {
+  li{
+    display:table;
+    margin:0px auto 0px auto;
+  }
+
+}
 /* @media  only screen and (min-width: 800px)  { */
 
-.logo-big {
-  height: 32px;
-  width:  32px;
-  margin-left:15%;
-  margin-right: 3%;
+
+@media  only screen and (min-width: 1000px)  {
+  .logo-big {
+    height: 32px;
+    width:  32px;
+    margin-left:15%;
+    margin-right: 3%;
+  }
+  
 }
-
-.black_button {
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2)0 1px 2px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 20px;
-
-}
-
-
-
-
 
 
 

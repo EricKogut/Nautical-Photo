@@ -21,12 +21,16 @@ export class HeaderComponent implements OnInit {
     this.isMenuCollapsed = true;
   }
 
+  toggleMenuCollapsed() {
+    this.isMenuCollapsed = !this.isMenuCollapsed;
+   }
+
   //Sending the user to the logout page after clicking logout button
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
     this.router.navigate(['']);
-    window.alert("Logged Out!")
+    window.alert('Logged Out!');
   }
 
   ngOnInit(): void {

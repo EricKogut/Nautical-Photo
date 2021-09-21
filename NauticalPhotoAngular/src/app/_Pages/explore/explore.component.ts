@@ -83,7 +83,6 @@ export class ExploreComponent implements OnInit {
   }
 
   addPhoto(photo) {
-    console.log('added', photo);
     this.photos.unshift(photo);
     this.user_photos.unshift(photo);
   }

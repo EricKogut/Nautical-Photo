@@ -21,10 +21,20 @@ export class PhotoUploaderComponent implements OnInit {
   }
   public onUpload() {
     this.loading = true;
-    this.photoUploadService.uploadFile(this.file).subscribe((res: any) => {
-      this.uploadedFile.emit(res.response.photo);
-      this.loading = false;
-    });
+    this.photoUploadService.uploadFile(this.file).subscribe(
+      (res: any) => {
+        console.log(res, 'is the res');
+        this.uploadedFile.emit(res.response.photo);
+        this.loading = false;
+      },
+      (err) => {
+        window.alert(
+          'Please upload a valid image with any of the following extensions: jpeg, jiff, gif, jpg, png, svg'
+        );
+        // this.uploadedFile.emit(res.response.photo);
+        this.loading = false;
+      }
+    );
   }
 
   constructor(private photoUploadService: PhotoUploadService) {}

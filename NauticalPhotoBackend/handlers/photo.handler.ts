@@ -73,67 +73,68 @@ function handleUpload(req: any) {
 
     const fileExtension = multerRequest.file.name.split(".").pop();
 
-    const fileExtensions = ["jpeg", "jiff", "gif", "jpg", "png", "svg"];
+    const fileExtensions = ["jpeg", "jfif", "gif", "jpg", "png", "svg"];
 
-    if (!fileExtensions.indexOf(fileExtension.toLowerCase())) {
-      reject({
-        status: 400,
+    if (fileExtensions.indexOf(fileExtension.toLowerCase()) === -1) {
+      resolve({
+        status: 406,
         message: "Faulty file",
       });
-    }
-    const stream = require("stream"),
-      dataStream = new stream.PassThrough(),
-      gcFile = bucket.file(hash + "." + fileExtension);
+    } else {
+      const stream = require("stream"),
+        dataStream = new stream.PassThrough(),
+        gcFile = bucket.file(hash + "." + fileExtension);
 
-    dataStream.push(multerRequest.file.data);
-    dataStream.push(null);
+      dataStream.push(multerRequest.file.data);
+      dataStream.push(null);
 
-    dataStream
-      .pipe(
-        gcFile.createWriteStream({
-          resumable: false,
-          validation: false,
-          metadata: { "Cache-Control": "public, max-age=31536000" },
-        })
-      )
-      .on("error", (error: Error) => {
-        reject({
-          status: 500,
-          message: "Error processing your request, see below",
-          error: error,
-        });
-      })
-      .on("finish", () => {
-        //Creating a new user
-        const newPhoto = new Photo({
-          name: multerRequest.file.name,
-          owner: req.params.email,
-          url:
-            "https://storage.googleapis.com/nautical-photo-pictures/" +
-            hash +
-            "." +
-            fileExtension,
-          public: true,
-          likes: 0,
-        });
-
-        try {
-          newPhoto.save().then((photo) => {
-            //This function grabs the id off the user object
-            resolve({
-              status: 200,
-              message: "File successfully uploaded!",
-              photo: photo,
-            });
-          });
-        } catch (err) {
+      dataStream
+        .pipe(
+          gcFile.createWriteStream({
+            resumable: false,
+            validation: false,
+            metadata: { "Cache-Control": "public, max-age=31536000" },
+          })
+        )
+        .on("error", (error: Error) => {
           reject({
             status: 500,
-            success: false,
-            message: err,
+            message: "Error processing your request, see below",
+            error: error,
           });
-        }
-      });
+        })
+        .on("finish", () => {
+          //Creating a new user
+          const newPhoto = new Photo({
+            name: multerRequest.file.name,
+            owner: req.params.email,
+            url:
+              "https://storage.googleapis.com/nautical-photo-pictures/" +
+              hash +
+              "." +
+              fileExtension,
+            public: true,
+            likes: 0,
+          });
+
+          try {
+            newPhoto.save().then((photo) => {
+              //This function grabs the id off the user object
+              resolve({
+                status: 200,
+                message: "File successfully uploaded!",
+                photo: photo,
+              });
+            });
+          } catch (err) {
+            reject({
+              status: 500,
+              success: false,
+              message: err,
+            });
+          }
+        });
+    }
   });
 }
 

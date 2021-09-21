@@ -4,17 +4,14 @@
     <a class="navbar-brand brand-small" (click)="navigateToMain()" data-toggle="tooltip" style = "cursor:pointer;">  Nautical Photo</a>
 
 
-<button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+<button class="navbar-toggler" type="button" (click)="toggleMenuCollapsed()">
     &#9776;
   </button>
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse justify-content-end" style = "margin-right: 15%;">
-    <ul class="navbar-nav icons mr-auto">
+    <ul class="navbar-nav">
       <li class = 'nav-item active '>
         <a class="nav-link" [routerLink]="'/explore'" style = "cursor:pointer;" >Explore</a>
-      </li>
-      <li class = 'nav-item '>
-        <a class="nav-link"  >|</a>
       </li>
       <li *ngIf="!isLoggedIn" class = 'nav-item active '>
         <a class="nav-link" [routerLink]="'/auth'"  style = "cursor:pointer;" >Login</a>
