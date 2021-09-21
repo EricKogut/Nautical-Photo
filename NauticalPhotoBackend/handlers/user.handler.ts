@@ -10,6 +10,7 @@ function handleUser(endpoint: String, body: Object) {
       return handleUserRegistration(body);
     case "login":
       return handleUserLogin(body);
+
   }
   return null;
 }

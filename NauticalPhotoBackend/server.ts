@@ -37,6 +37,13 @@ app.use(bodyParser.json());
 
 //Handling file uploads
 app.use(fileupload());
+
+// Adding logging for request
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log(req.method + " request for " + req.url);
+  next();
+});
+
 ///////////////////////////
 /* Routes */
 import { userRouter } from "./routes/user.routes";
@@ -46,12 +53,6 @@ import { photoRouter } from "./routes/photo.routes";
 app.use("/user", userRouter());
 app.use("/photo", photoRouter());
 ///////////////////////////
-
-// Adding logging for request
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(req.method + " request for " + req.url);
-  next();
-});
 
 // Starting express server
 const server = app.listen(port, () =>

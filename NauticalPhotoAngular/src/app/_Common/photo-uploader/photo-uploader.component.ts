@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 
 // Services
 import { PhotoUploadService } from 'src/app/_Services/photo-upload.service';
@@ -9,13 +10,20 @@ import { PhotoUploadService } from 'src/app/_Services/photo-upload.service';
 })
 export class PhotoUploaderComponent implements OnInit {
   private file: File;
+  public loading: Boolean = false;
+
+  @Output()
+  public uploadedFile = new EventEmitter();
+
   public onFileSelect(event) {
     this.file = event.target.files[0];
     this.onUpload();
   }
   public onUpload() {
-    this.photoUploadService.uploadFile(this.file).subscribe((res) => {
-      console.log(res, 'is the res');
+    this.loading = true;
+    this.photoUploadService.uploadFile(this.file).subscribe((res: any) => {
+      this.uploadedFile.emit(res.response.photo);
+      this.loading = false;
     });
   }
 

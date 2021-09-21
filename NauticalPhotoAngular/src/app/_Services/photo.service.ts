@@ -28,4 +28,31 @@ export class PhotoService {
   likeImage(id) {
     return this.http.put(baseUrl + '/photo/like', { id: id });
   }
+
+  togglePublic(id) {
+    // Had to add these options as it was complaining
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id: id,
+      },
+    };
+    return this.http.put(baseUrl + '/photo/toggle/public', options);
+  }
+
+  deleteImage(id) {
+    // Had to add these options as it was complaining
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id: id,
+        name: 'test',
+      },
+    };
+    return this.http.delete(baseUrl + '/photo/delete', options);
+  }
 }

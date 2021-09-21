@@ -1,11 +1,17 @@
-
 <div *ngIf="isLoggedIn">
   <mat-tab-group mat-align-tabs="center" animationDuration="1000ms">
     <mat-tab label="Feed">
-      <app-photo-uploader style="margin-top: 10px;"></app-photo-uploader>
+      <app-photo-uploader (uploadedFile)="addPhoto($event)" style="margin-top: 10px;"></app-photo-uploader>
       <div *ngFor="let photo of photos">
         <mat-card style="margin-top: 10px;">
-          <img style="max-width:90%; max-height:90%;  margin: 0 auto;" src="{{photo.url}}">
+          <mat-card-title>
+          <button mat-icon-button color="accent" aria-label="Example icon button with a home icon">
+            <mat-icon>account_circle</mat-icon>
+            {{photo.owner}}
+
+          </button>
+        </mat-card-title>
+          <img style="max-width:70%; max-height:70%;  margin: 0 auto;" src="{{photo.url}}">
           <mat-card-subtitle style="margin-top: 2px;">Liked {{photo.likes}} times <button mat-icon-button color="warn"
               style="float: right;" (click)="likeImage(photo)">
               <mat-icon>favorite</mat-icon>
@@ -13,15 +19,40 @@
         </mat-card>
       </div>
     </mat-tab>
+
     <mat-tab label="Your Images">
-      <app-photo-uploader style="margin-top: 10px;"></app-photo-uploader>
-      <div *ngFor="let photo of user_photos">
+      <app-photo-uploader (uploadedFile)="addPhoto($event)" style="margin-top: 10px;"></app-photo-uploader>
+      <div *ngFor="let user_photo of user_photos">
         <mat-card style="margin-top: 10px;">
-          <img style="max-width:90%; max-height:90%;  margin: 0 auto;" src="{{photo.url}}">
-          <mat-card-subtitle style="margin-top: 2px;">Liked {{photo.likes}} times <button mat-icon-button color="warn"
-              style="float: right;" (click)="likeImage(photo)">
-              <mat-icon>favorite</mat-icon>
-            </button></mat-card-subtitle>
+          <mat-card-title> 
+            <p *ngIf="user_photo.public">
+              <mat-icon>info</mat-icon>
+              This photo is public
+            </p>
+            <p *ngIf="!user_photo.public">
+              <mat-icon>info</mat-icon>
+              This photo is private
+            </p>
+          </mat-card-title>
+          <img style="max-width:70%; max-height:70%;  margin: 0 auto;" src="{{user_photo.url}}">
+          <mat-card-subtitle style="margin-top: 2px;">Liked {{user_photo.likes}} times
+            <button *ngIf="user_photo.public" mat-icon-button style="float: right;" (click)="toggleVisibility(user_photo)">
+              <mat-icon>visibility_off</mat-icon>
+            </button>
+            <button *ngIf="!user_photo.public" mat-icon-button style="float: right;" (click)="toggleVisibility(user_photo)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button style="float: right;" (click)="deletePhoto(user_photo)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <a href="{{user_photo.url}}"target = "_blank">
+
+            <button mat-icon-button style="float: right;" >
+           
+              <mat-icon>download</mat-icon>
+            </button>
+          </a>
+          </mat-card-subtitle>
         </mat-card>
       </div>
     </mat-tab>
@@ -29,7 +60,7 @@
 </div>
 
 <div *ngIf="!isLoggedIn">
- 
+
   <mat-toolbar>
     <span>Login to upload and like photos</span>
   </mat-toolbar>
@@ -41,6 +72,9 @@
   </div>
 </div>
 
-<div *ngIf="isLoading">
+<div *ngIf="isLoading" style = "position: fixed;  top: 50%;
+left: 50%;
+width: 100%;
+height: 100%;">
   <mat-spinner></mat-spinner>
 </div>

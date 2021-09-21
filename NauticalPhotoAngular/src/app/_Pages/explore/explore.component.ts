@@ -23,12 +23,9 @@ export class ExploreComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('id_token')) {
       this.isLoggedIn = true;
-      console.log('user is logged in');
     }
     this.photoService.getPublicPhotos().subscribe((response: any) => {
-      console.log(response, 'are the public photos');
       this.photos = response.response.message;
-      console.log(this.photos, 'are the photos');
       this.isLoading = false;
     });
 
@@ -39,7 +36,6 @@ export class ExploreComponent implements OnInit {
       this.photoService
         .getUserPhotos({ hash, email })
         .subscribe((response: any) => {
-          console.log(response.response.message, 'are the private photos');
           this.user_photos = response.response.message;
         });
     }
@@ -48,9 +44,44 @@ export class ExploreComponent implements OnInit {
   likeImage(photo: any) {
     this.photoService.likeImage(photo._id).subscribe((image) => {
       const index = this.photos.indexOf(photo);
-      console.log(this.photos[index].likes);
       this.photos[index].likes += 1;
-      console.log(this.photos[index].likes);
     });
+  }
+
+  toggleVisibility(photo: any) {
+    this.isLoading = true;
+    this.photoService.togglePublic(photo._id).subscribe((image) => {
+      const index = this.user_photos.indexOf(photo);
+      this.user_photos[index].public = !this.user_photos[index].public;
+
+      const publicIndex = this.photos.indexOf(photo);
+      if (publicIndex !== -1) {
+        this.photos.splice(publicIndex, 1);
+      } else {
+        this.photos.push(photo);
+      }
+
+      this.isLoading = false;
+    });
+  }
+
+  deletePhoto(photo: any) {
+    this.isLoading = true;
+    this.photoService.deleteImage(photo._id).subscribe((image) => {
+      const index = this.user_photos.indexOf(photo);
+      this.user_photos.splice(index, 1);
+
+      const publicIndex = this.photos.indexOf(photo);
+      if (publicIndex !== -1) {
+        this.photos.splice(publicIndex, 1);
+      }
+      this.isLoading = false;
+    });
+  }
+
+  addPhoto(photo) {
+    console.log('added', photo);
+    this.photos.unshift(photo);
+    this.user_photos.unshift(photo);
   }
 }

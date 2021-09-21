@@ -44,6 +44,10 @@ function handlePhoto(endpoint: String, data: Object) {
       return handleGetPrivate(data);
     case "like":
       return handleLike(data);
+    case "toggle/public":
+      return handleTogglePhoto(data);
+    case "delete":
+      return handleDelete(data);
   }
   return null;
 }
@@ -111,6 +115,7 @@ function handleUpload(req: any) {
             resolve({
               status: 200,
               message: "File successfully uploaded!",
+              photo: photo,
             });
           });
         } catch (err) {
@@ -127,7 +132,7 @@ function handleUpload(req: any) {
 function handleGetPublic(req: any) {
   return new Promise((resolve, reject) => {
     Photo.find({ public: true })
-      .sort({ created_at: 1 })
+      .sort({ createdAt: -1 })
       .then((photos) => {
         resolve({ status: 200, success: true, message: photos });
       })
@@ -141,6 +146,7 @@ function handleGetPrivate(req: any) {
   return new Promise((resolve, reject) => {
     //First seeing if the password and email combo works
     User.find({ username: req.body.owner, password: req.body.hash })
+      .sort({ createdAt: -1 })
       .then((user) => {
         //If the user exists wrt the password email combo, get the images
         Photo.find({ owner: req.body.owner })
@@ -176,6 +182,58 @@ function handleLike(req: any) {
           status: 500,
           success: true,
           message: "issue liking phot photos" + err,
+        });
+      });
+  });
+}
+
+// Will make a photo that was public => private, vice versa
+function handleTogglePhoto(req: any) {
+  return new Promise((resolve, reject) => {
+    Photo.find({ _id: new ObjectId(req.body.id) })
+      .then((photo: any) => {
+        Photo.updateOne(
+          { _id: new ObjectId(req.body.id) },
+          { public: !photo.public }
+        )
+          .then((updatedPhoto) => {
+            resolve({
+              status: 200,
+              success: true,
+              message: "Change the visiblility of the photo",
+            });
+          })
+          .catch((err) => {
+            reject({
+              status: 500,
+              success: true,
+              message:
+                "We found the photo, but there was an issue toggling the view of the photo" +
+                err,
+            });
+          });
+      })
+      .catch((err) => {
+        reject({
+          status: 500,
+          success: true,
+          message: "Issue toggling the view of the photo" + err,
+        });
+      });
+  });
+}
+
+function handleDelete(req: any) {
+  return new Promise((resolve, reject) => {
+    Photo.findOneAndDelete({ _id: new ObjectId(req.body.id) })
+      .then((photo) => {
+        resolve({ status: 200, success: true, message: "Deleted image" });
+      })
+      .catch((err) => {
+        reject({
+          status: 500,
+          success: true,
+          message: "Issue delete the photo" + err,
         });
       });
   });

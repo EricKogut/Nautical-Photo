@@ -49,6 +49,7 @@ export const photoRouter = () => {
       });
   });
 
+  //Get all photos belonging to a particular user
   router.put("/get/private", async function (req: Request, res, next) {
     photoHandler
       .handlePhoto("get/private", req)
@@ -60,9 +61,33 @@ export const photoRouter = () => {
       });
   });
 
+
+  // Like a photo given an ID
   router.put("/like", async function (req: Request, res, next) {
     photoHandler
       .handlePhoto("like", req)
+      .then((response: any) => {
+        return res.status(response.status).json({ response });
+      })
+      .catch((error: any) => {
+        return res.status(error.status).json({ error });
+      });
+  });
+
+  router.put("/toggle/public", async function (req: Request, res, next) {
+    photoHandler
+      .handlePhoto("toggle/public", req)
+      .then((response: any) => {
+        return res.status(response.status).json({ response });
+      })
+      .catch((error: any) => {
+        return res.status(error.status).json({ error });
+      });
+  });
+
+  router.delete("/delete", async function (req: Request, res, next) {
+    photoHandler
+      .handlePhoto("delete", req)
       .then((response: any) => {
         return res.status(response.status).json({ response });
       })
