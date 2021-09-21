@@ -200,11 +200,12 @@ function handleLike(req: any) {
 // Will make a photo that was public => private, vice versa
 function handleTogglePhoto(req: any) {
   return new Promise((resolve, reject) => {
-    Photo.find({ _id: new ObjectId(req.body.id) })
+    Photo.findOne({ _id: new ObjectId(req.body.body.id) })
       .then((photo: any) => {
+        const isPublic = !photo.public;
         Photo.findByIdAndUpdate(
-          { _id: new ObjectId(req.body.id) },
-          { public: !photo.public }
+          { _id: new ObjectId(req.body.body.id) },
+          { public: isPublic }
         )
           .then((updatedPhoto) => {
             console.log(updatedPhoto, "has been toggled");
@@ -212,7 +213,7 @@ function handleTogglePhoto(req: any) {
             resolve({
               status: 200,
               success: true,
-              message: "Change the visiblility of the photo",
+              message: "Changed the visiblility of the photo",
             });
           })
           .catch((err) => {

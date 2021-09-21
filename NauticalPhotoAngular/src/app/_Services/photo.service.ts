@@ -31,7 +31,15 @@ export class PhotoService {
 
   togglePublic(id) {
     // Had to add these options as it was complaining
-    return this.http.put(baseUrl + '/photo/toggle/public', { id: id });
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id: id,
+      },
+    };
+    return this.http.put(baseUrl + '/photo/toggle/public', options);
   }
 
   deleteImage(id) {
