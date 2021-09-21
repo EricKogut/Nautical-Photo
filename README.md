@@ -1,5 +1,5 @@
 # Nautical Photo
-[Try it out :)](https://nautical-photo.uc.r.appspot.com/#/)
+[Try it out :)](https://nautical-photo.uc.r.appspot.com/#/) Please note that the backend server may need a minute to spin-up, if it is not working at first, refresh the page.
 ![Landing](https://storage.googleapis.com/nautical-photo-pictures/Animation.gif)
 
 
