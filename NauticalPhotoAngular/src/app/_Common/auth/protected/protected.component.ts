@@ -9,7 +9,9 @@ import { environment } from '../../../../environments/environment';
 })
 export class ProtectedComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
-  baseURL = environment.backend_url;
+
+  /* Vars to store backend string and the message */
+  baseURL: String = environment.backend_url;
   message: String;
 
   /////////////////////////////////////////////////////////////////////

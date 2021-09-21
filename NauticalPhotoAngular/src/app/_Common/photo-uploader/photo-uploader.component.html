@@ -1,15 +1,22 @@
-<div class = "center">
+<div class="center">
+  <button
+    disabled="{{ loading }}"
+    type="button"
+    mat-raised-button
+    (click)="fileInput.click()"
+    style="width: 100%"
+  >
+    Upload
+    <mat-icon aria-hidden="false">arrow_upward</mat-icon>
+  </button>
 
-
-<button disabled={{loading}} type="button" mat-raised-button (click)="fileInput.click()" style = "width: 100%;">
-  Upload
-  <mat-icon aria-hidden="false" >arrow_upward</mat-icon>
-
-</button>
-<form method="post" enctype="multipart/form-data">
-
-<input hidden (change)="onFileSelect($event)" #fileInput type="file" id="file">
-</form>
-
-
+  <form method="post" enctype="multipart/form-data">
+    <input
+      hidden
+      (change)="onFileSelect($event)"
+      #fileInput
+      type="file"
+      id="file"
+    />
+  </form>
 </div>
