@@ -20,7 +20,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="Your Images">
+    <mat-tab label="Your Photos">
       <app-photo-uploader (uploadedFile)="addPhoto($event)" style="margin-top: 10px;"></app-photo-uploader>
       <div *ngFor="let user_photo of user_photos">
         <mat-card style="margin-top: 10px;">

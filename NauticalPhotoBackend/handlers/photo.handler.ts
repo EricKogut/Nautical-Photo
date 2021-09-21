@@ -71,11 +71,19 @@ function handleUpload(req: any) {
 
     const hash = (Math.random() + 1).toString(36).substring(7);
 
-    const fileExtention = multerRequest.file.name.split(".").pop();
+    const fileExtension = multerRequest.file.name.split(".").pop();
 
+    const fileExtensions = ["jpeg", "jiff", "gif", "jpg", "png", "svg"];
+
+    if (!fileExtensions.indexOf(fileExtension.toLowerCase())) {
+      reject({
+        status: 400,
+        message: "Faulty file",
+      });
+    }
     const stream = require("stream"),
       dataStream = new stream.PassThrough(),
-      gcFile = bucket.file(hash + "." + fileExtention);
+      gcFile = bucket.file(hash + "." + fileExtension);
 
     dataStream.push(multerRequest.file.data);
     dataStream.push(null);
@@ -104,7 +112,7 @@ function handleUpload(req: any) {
             "https://storage.googleapis.com/nautical-photo-pictures/" +
             hash +
             "." +
-            fileExtention,
+            fileExtension,
           public: true,
           likes: 0,
         });

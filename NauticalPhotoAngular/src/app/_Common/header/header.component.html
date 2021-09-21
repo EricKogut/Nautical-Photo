@@ -11,10 +11,10 @@
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse justify-content-end" style = "margin-right: 15%;">
     <ul class="navbar-nav icons mr-auto">
       <li class = 'nav-item active '>
-        <a class="nav-link" [routerLink]="'/'" (click) = "navigateToMain()" style = "cursor:pointer;" >Explore</a>
+        <a class="nav-link" [routerLink]="'/explore'" style = "cursor:pointer;" >Explore</a>
       </li>
-      <li class = 'nav-item active '>
-        <a class="nav-link" [routerLink]="'/'" (click) = "navigateToMain()" style = "cursor:pointer;" >|</a>
+      <li class = 'nav-item '>
+        <a class="nav-link"  >|</a>
       </li>
       <li *ngIf="!isLoggedIn" class = 'nav-item active '>
         <a class="nav-link" [routerLink]="'/auth'"  style = "cursor:pointer;" >Login</a>
