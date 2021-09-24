@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./authpage.component.sass'],
 })
 export class AuthpageComponent implements OnInit {
+
+  // Initial authpage state
   public authType: String = 'login';
 
   constructor() {}
 
+  // Handling the event emmitter from register or login
   updateAuthPage(event) {
     this.authType = event;
   }

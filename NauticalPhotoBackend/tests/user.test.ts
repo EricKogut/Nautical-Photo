@@ -7,6 +7,8 @@ const requestWithSupertest = supertest(server);
 var rug = require("random-username-generator");
 var new_username = rug.generate();
 
+
+/* Test to create user account, and sign in*/
 describe("Register and Login test", () => {
   let username = rug.generate();
   const testUser = {
@@ -31,3 +33,7 @@ describe("Register and Login test", () => {
     expect(res.status).toEqual(200);
   });
 });
+
+
+
+

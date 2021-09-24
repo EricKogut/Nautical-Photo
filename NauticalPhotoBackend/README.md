@@ -7,7 +7,7 @@ GCP credentials and MongoDB credentials available upon request: please email eri
 [The server](http://backend-dot-nautical-photo.uc.r.appspot.com/) may need a minute to spinnup at first. Refresh the page if it doesn't work.
 This server was extended from [my own](https://github.com/EricKogut/ts-node-express-server-boilerplate) repo to fit the purposes of this project.
 It uses a GCP cloud storage to store the images sent by the users, and MongoDB as the database to store the user and photo documents.
-On the auth side, it uses public/private key encryption, generated via [pkcs1](https://en.wikipedia.org/wiki/PKCS_1). Public key is stored on client side, to be sent as a bearer token.
+On the auth side, it uses public/private key encryption, generated via [pkcs1](https://en.wikipedia.org/wiki/PKCS_1). 
 User password is salted, also to be stored on the client and decrypted on the server. See utils folder for complete list of auth functions. 
 
 

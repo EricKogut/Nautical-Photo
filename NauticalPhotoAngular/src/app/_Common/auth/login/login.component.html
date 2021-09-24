@@ -1,25 +1,27 @@
-<mat-card >
-  <mat-card-title>
-    Login to your account</mat-card-title>
-    <img mat-card-image  style = "max-width:50%; max-height:50%;  margin: 0 auto;"  src = "../../../../assets/img/dancing-duck2.gif">
-    <img mat-card-image  style = "max-width:30%; max-height:30%;  margin: 0 auto;"  src = "../../../../assets/img/anchor.png">
+<mat-card>
+  <mat-card-title>Login to your account</mat-card-title>
 
-    <mat-card-content>
-      <mat-card-subtitle>Login to your account if you already have one :)</mat-card-subtitle>
+  <!--Images displayed at the top of the car-->
+  <img mat-card-image class="large-photo" src="../../../../assets/img/dancing-duck2.gif">
+  <img mat-card-image class="small-photo" src="../../../../assets/img/anchor.png">
 
 
-<mat-form-field appearance="outline">
-  <mat-label>Enter your username</mat-label>
-  <input matInput maxlength = "30" #usernameBox  (input)="handleUsername(usernameBox.value)" placeholder="Enter your email"  >
-</mat-form-field>
+  <mat-card-content>
+    <mat-card-subtitle>Login to your account if you already have one :)</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your username</mat-label>
+      <input matInput maxlength="30" #usernameBox (input)="handleUsername(usernameBox.value)"
+        placeholder="Enter your email">
+    </mat-form-field>
 
-<mat-form-field appearance="outline">
-  <mat-label>Enter your password</mat-label>
-  <input matInput maxlength = "30" #passwordBox (input)="handlePassword(passwordBox.value)" placeholder="Enter your password" >
-</mat-form-field>
-<button mat-raised-button color="primary" (click) = "handleLogin()">Login</button>
-    <button mat-stroked-button color="accent" (click) = "handleRegister()">Register</button>
-</mat-card-content>
-  </mat-card>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input matInput maxlength="30" #passwordBox (input)="handlePassword(passwordBox.value)"
+        placeholder="Enter your password">
+    </mat-form-field>
 
-  
+    <!-- Buttons -->
+    <button mat-raised-button color="primary" (click)="handleLogin()">Login</button>
+    <button mat-stroked-button color="accent" (click)="handleRegister()">Register</button>
+  </mat-card-content>
+</mat-card>

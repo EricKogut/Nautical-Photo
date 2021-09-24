@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.sass'],
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   //Constructor

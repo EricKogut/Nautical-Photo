@@ -8,16 +8,19 @@ import { Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  //Contructor
+
+
+  // Contructor for the login module
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     private router: Router
   ) {}
 
+  // Output to be used to let the auth page know that the user wants to switch to register
   @Output()
   public changeAuthPage = new EventEmitter();
 
@@ -25,19 +28,19 @@ export class LoginComponent implements OnInit {
   private username: string;
   private password: string;
 
-  //Moving the user to register if they click register
+  // Moving the user to register if they click register
   handleRegister() {
     this.changeAuthPage.emit('register');
   }
 
-  //Init (empty for now)
+  // If the user is logged in but they someone find themselves here, they are reroute to the home page
   ngOnInit(): void {
     if (localStorage.getItem('id_token')) {
       this.router.navigate(['']);
     }
   }
 
-  //Getting the user input from the various input boxes
+  // Getting the user input from the input boxes
   handleUsername(term: string): void {
     this.username = term.replace(/[<={}()>/\\]/gi, '');
   }
@@ -47,17 +50,18 @@ export class LoginComponent implements OnInit {
 
   //Handling the input and getting a rsponse
   async handleLogin() {
-    const headers = new HttpHeaders({ 'Content-type': 'application/json' });
+
     //Creatibg the request object
     const reqObject = {
       username: this.username,
       password: this.password,
     };
 
-    //Sendding the request to login
+    //Sending the request to login, awaiting the response
     const result = await this.authService.login(reqObject);
 
-    if (result) {
+    // If the result returns true, the user is navigating to the landing page
+    if (result === true) {
       this.router.navigate(['']);
     }
   }
