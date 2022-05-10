@@ -1,7 +1,7 @@
 
 
 ## Node Server -> MongoDB + GCP
-GCP credentials and MongoDB credentials available upon request: please email eric.jkogut@gmail.com
+GCP credentials and MongoDB credentials available upon request: please email eric dot jkogut at gmail.
 
 ### Note
 [The server](http://backend-dot-nautical-photo.uc.r.appspot.com/) may need a minute to spinnup at first. Refresh the page if it doesn't work.
