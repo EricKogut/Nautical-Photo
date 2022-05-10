@@ -1,5 +1,5 @@
 # Nautical Photo
-[Try it out :) (April 27 22' update: broken at the moment😬)](https://nautical-photo.uc.r.appspot.com/#/) Please note that the backend server may need a minute to spin-up, if it is not working at first, refresh the page.  For a technical explanation please see the backend folder for a more comprehensive README (basic explanation in the frontend folder as well).
+[Try it out :)](https://nautical-photo.uc.r.appspot.com/#/) Please note that the backend server may need a minute to spin-up, if it is not working at first, refresh the page (however the Atlas Cluster becomes paused after prolonged inactivity).  For a technical explanation please see the backend folder for a more comprehensive README (basic explanation in the frontend folder as well).
 ![Landing](https://storage.googleapis.com/nautical-photo-pictures/Animation.gif)
 
 
