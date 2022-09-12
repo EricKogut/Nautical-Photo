@@ -3,7 +3,7 @@
 ![Landing](https://storage.googleapis.com/nautical-photo-pictures/Animation.gif)
 
 
-[Nautical Photo](https://nautical-photo.uc.r.appspot.com/#/) is my submission to the 2021 [Shopify Developer Intern Challenge](https://docs.google.com/document/d/1eg3sJTOwtyFhDopKedRD6142CFkDfWp1QvRKXNTPIOc/edit). It tasked us with creating a photo repository application. GCP credentials and MongoDB credentials available upon request: please email eric.jkogut@gmail.com
+[Nautical Photo](https://nautical-photo.uc.r.appspot.com/#/) is my submission to the 2021 [Shopify Developer Intern Challenge](https://docs.google.com/document/d/1eg3sJTOwtyFhDopKedRD6142CFkDfWp1QvRKXNTPIOc/edit). It tasked us with creating a photo repository application. GCP credentials and MongoDB credentials available upon request: please email eric(dot)jkogut(at)gmail(dot)com
 
 I opted to create a relatively simple "Instagram" clone. Unfortunately, I was unable to follow a TDD process, in that I wanted to ensure that the key features were possible and viable.
 
